@@ -1,0 +1,1 @@
+render partial: 'chore.json.jb', locals: {chore: @chore}

@@ -1,0 +1,3 @@
+@chores.map do |chore|
+  render partial: 'chore.json.jb', locals: {chore: chore}
+end

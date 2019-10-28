@@ -1,0 +1,6 @@
+{
+  id: chore.id,
+  name: chore.name,
+  value: chore.value,
+  house_id: chore.house_id
+}
