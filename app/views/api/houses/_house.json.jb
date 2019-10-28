@@ -1,0 +1,6 @@
+{
+  id: house.id,
+  name: house.name,
+  users: house.users.map {|user| render partial: 'api/users/user.json.jb', locals: {user: user}},
+  chores: house.chores.map {|chore| render partial: 'api/chores/chore.json.jb', locals: {chore: chore}}
+}

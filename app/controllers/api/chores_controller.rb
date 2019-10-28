@@ -1,5 +1,7 @@
 class Api::ChoresController < ApplicationController
   #need before_action
+  before_action :authenticate_admin
+
   def index
     whole_house = params[:house]  
     if whole_house == "true"
@@ -43,5 +45,5 @@ class Api::ChoresController < ApplicationController
     @chore.destroy
     render json: {message: "chore destroyed"}
   end
-  
+
 end
