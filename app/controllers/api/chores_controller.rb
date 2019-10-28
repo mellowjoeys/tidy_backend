@@ -1,6 +1,6 @@
 class Api::ChoresController < ApplicationController
   #need before_action
-  before_action :authenticate_admin
+  before_action :authenticate_user
 
   def index
     whole_house = params[:house]  

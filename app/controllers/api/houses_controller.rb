@@ -1,4 +1,5 @@
 class Api::HousesController < ApplicationController
+  before_action :authenticate_user
   def index
     @houses = House.all
     render 'index.json.jb'
@@ -23,5 +24,5 @@ class Api::HousesController < ApplicationController
 
   def destroy
   end
-  
+
 end
