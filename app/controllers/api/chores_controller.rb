@@ -15,7 +15,7 @@ class Api::ChoresController < ApplicationController
   def create
     @chore = Chore.new(
                         name: params[:name],
-                        value: params[:value],
+                        value: 0
                         house_id: current_user.house_id
                       )
     if @chore.save

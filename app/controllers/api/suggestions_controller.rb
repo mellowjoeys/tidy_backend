@@ -34,6 +34,5 @@ class Api::SuggestionsController < ApplicationController
   end
 
   def destroy
-    
   end
 end

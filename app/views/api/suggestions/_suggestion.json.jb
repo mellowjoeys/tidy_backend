@@ -1,0 +1,6 @@
+{
+  id: suggestion.id,
+  value: suggestion.value,
+  chore_id: suggestion.chore_id,
+  user_id: suggestion.user_id
+}

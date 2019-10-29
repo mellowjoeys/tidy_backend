@@ -1,0 +1,3 @@
+@suggestions.map do |suggestion|
+  render partial: 'suggestion.json.jb', locals: {suggestion: suggestion}
+end

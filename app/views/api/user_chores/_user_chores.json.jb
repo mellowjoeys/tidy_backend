@@ -1,0 +1,7 @@
+{
+  id: user_chore.id,
+  chore_id: user_chore.chore_id,
+  user_id: user_chore.user_id,
+  start_of_week: user_chore.start_of_week,
+  completed: user_chore.completed
+}

@@ -2,6 +2,6 @@
   id: chore.id,
   name: chore.name,
   value: chore.value,
-  house_id: chore.house_id
+  house_id: chore.house_id,
   suggestions: chore.suggestions.map { |suggestion| render partial: 'api/suggestions/suggestion.json.jb', locals: {suggestion: suggestion} }
 }
