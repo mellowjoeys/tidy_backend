@@ -8,7 +8,8 @@ class Api::SuggestionsController < ApplicationController
 
   def create
     @suggestion = Suggestion.new(
-                                  name: params[:name],
+                                  chore_id: params[:chore_id],
+                                  user_id: current_user.id,
                                   value: params[:value]
                                 )
     if @suggestion.save
@@ -19,7 +20,8 @@ class Api::SuggestionsController < ApplicationController
   end
 
   def show
-    @suggestion = Suggestion.find_by(params[:id])
+    @suggestion = Suggestion.find(params[:id])
+    render 'show.json.jb'
   end
 
   def update
@@ -34,5 +36,8 @@ class Api::SuggestionsController < ApplicationController
   end
 
   def destroy
+    @suggestion = Suggestion.find(params[:id])
+    @suggestion.destroy
+    render json: {message: "Suggestion destroyed"}
   end
 end

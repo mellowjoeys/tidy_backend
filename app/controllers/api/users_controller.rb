@@ -1,7 +1,7 @@
-class Api::UsersController < ApplicationController
+ class Api::UsersController < ApplicationController
 
   def index
-    @users = User.all
+    @users = User.where(house_id: current_user.house_id)
     render 'index.json.jb'
   end
 
@@ -28,9 +28,14 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
-    @user.house_id = params[:house_id] || @user.house_id
-    render 'show.json.jb'
+    @user = current_user
+    if params[:house_id]
+      @user.house_id = params[:house_id]
+      @user.save
+      render 'show.json.jb'
+    else
+      render json: {message: "Please add a house_id to change and number to change it to."}
+    end
   end
 
   def destroy

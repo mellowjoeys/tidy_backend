@@ -1,5 +1,4 @@
-class Api::ChoresController < ApplicationController
-  #need before_action
+class Api::ChoresController < ApplicationController #need before_action
   before_action :authenticate_user
 
   def index
@@ -7,7 +6,7 @@ class Api::ChoresController < ApplicationController
     if whole_house == "true"
       @chores = current_user.house.chores
     else
-      @chores = current_user.chores
+      @chores = current_user.chores_for_this_week
     end
     render 'index.json.jb'
   end
@@ -15,7 +14,7 @@ class Api::ChoresController < ApplicationController
   def create
     @chore = Chore.new(
                         name: params[:name],
-                        value: 0
+                        value: 0,
                         house_id: current_user.house_id
                       )
     if @chore.save

@@ -1,7 +1,13 @@
 class Api::UserChoresController < ApplicationController
   def index
-    @user_chores = UserChore.where(start_of_week: params[:start_of_week])
-    render 'index.json.jb'
+    if params[:start_of_week]
+
+
+      @user_chores = UserChore.where(start_of_week: params[:start_of_week])
+      render 'index.json.jb'
+    else
+      render json: {message: "need to include a start_of_week value with request"}
+    end
   end
 
   def create
@@ -11,7 +17,11 @@ class Api::UserChoresController < ApplicationController
                                 start_of_week: params[:start_of_week],
                                 completed: false
                                )
-    render 'show.json.jb'
+    if @user_chore.save
+      render 'show.json.jb'
+    else
+      render json: {errors: @user_chore.errors.full_messages, status: :unprocessable_entity}
+    end
   end
 
   def show
