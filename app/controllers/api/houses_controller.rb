@@ -1,5 +1,5 @@
 class Api::HousesController < ApplicationController
-  before_action :authenticate_user
+  before_action :authenticate_user, only: [:index]
   def index
     @houses = House.all
     render 'index.json.jb'

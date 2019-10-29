@@ -29,12 +29,14 @@
 
   def update
     @user = current_user
-    if params[:house_id]
-      @user.house_id = params[:house_id]
-      @user.save
-      render 'show.json.jb'
-    else
-      render json: {message: "Please add a house_id to change and number to change it to."}
+    if House.find(params[:house_id])
+      if params[:house_id]
+        @user.house_id = params[:house_id]
+        @user.save
+        render 'show.json.jb'
+      else
+        render json: {message: "Please add a house_id to change and number to change it to."}
+      end
     end
   end
 
