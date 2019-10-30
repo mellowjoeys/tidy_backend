@@ -1,4 +1,4 @@
-class Api::ChoresController < ApplicationController #need before_action
+class Api::ChoresController < ApplicationController
   before_action :authenticate_user
 
   def index

@@ -4,7 +4,6 @@ class Api::UserChoresController < ApplicationController
   def index
     if params[:start_of_week]
 
-
       @user_chores = UserChore.where(start_of_week: params[:start_of_week])
       render 'index.json.jb'
     else
@@ -19,7 +18,19 @@ class Api::UserChoresController < ApplicationController
                                 start_of_week: params[:start_of_week],
                                 completed: false
                                )
-    if @user_chore.save
+    if UserChore.find_by(
+                          user_id: current_user.id, 
+                          chore_id: params[:chore_id],
+                          start_of_week: params[:start_of_week]
+                        )
+      render json: {message: "You cannot sign up for a chore more than once per draft!"}
+    elsif UserChore.find_by(
+                            chore_id: params[:chore_id],
+                            start_of_week: params[:start_of_week]
+                           )
+      render json: {message: "Someone has already signed up for this chore!"}
+    
+    elsif @user_chore.save
       render 'show.json.jb'
     else
       render json: {errors: @user_chore.errors.full_messages, status: :unprocessable_entity}
@@ -40,6 +51,8 @@ class Api::UserChoresController < ApplicationController
       render json: {errors: @user_chore.errors.full_messages, status: :unprocessable_entity}
     end
   end
+
   def destroy
   end
+
 end
