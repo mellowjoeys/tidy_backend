@@ -13,6 +13,9 @@ class Api::SuggestionsController < ApplicationController
                                   value: params[:value]
                                 )
     if @suggestion.save
+      if @suggestion.change_chore_value?(params[:chore_id])
+        Chore.find(:chore_id).value = params[:value]
+      end
       render 'show.json.jb'
     else
       render json: {errors: @suggestion.errors.full_messages, status: :unprocessable_entity}
