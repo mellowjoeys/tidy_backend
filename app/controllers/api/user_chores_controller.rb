@@ -30,12 +30,13 @@ class Api::UserChoresController < ApplicationController
   end
 
   def update
-    # @user_chore = UserChore.find(params[:id])
-    # @user_chore.value = params[:value] || @user_chore.value
-    # if @user_chore.save
-    #   render 'show.json.jb'
-    # else
-    #   render json: {errors: @user_chore.errors.full_messages, status: :unprocessable_entity}
+    @user_chore = UserChore.find(params[:id])
+    @user_chore.completed = true
+    if @user_chore.save
+      render 'show.json.jb'
+    else
+      render json: {errors: @user_chore.errors.full_messages, status: :unprocessable_entity}
+    end
   end
   def destroy
   end
