@@ -1,4 +1,6 @@
 class Api::UserChoresController < ApplicationController
+  before_action :authenticate_user
+
   def index
     if params[:start_of_week]
 
