@@ -18,6 +18,11 @@ class Api::ChoresController < ApplicationController
                         house_id: current_user.house_id
                       )
     if @chore.save
+      Suggestion.create(
+                          chore_id: @chore.id,
+                          user_id: current_user.id,
+                          value: params[:value]
+                       )
       render 'show.json.jb'
     else
       render json: {errors: @chore.errors.full_messages, status: :unprocessable_entity}
