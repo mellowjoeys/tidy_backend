@@ -13,24 +13,13 @@ class Api::UserChoresController < ApplicationController
 
   def create
     @user_chore = UserChore.new(
-                                chore_id: params[:chore_id],
-                                user_id: current_user.id,
-                                start_of_week: params[:start_of_week],
-                                completed: false
-                               )
-    if UserChore.find_by(
-                          user_id: current_user.id, 
-                          chore_id: params[:chore_id],
-                          start_of_week: params[:start_of_week]
-                        )
-      render json: {message: "You cannot sign up for a chore more than once per draft!"}
-    elsif UserChore.find_by(
-                            chore_id: params[:chore_id],
-                            start_of_week: params[:start_of_week]
-                           )
-      render json: {message: "Someone has already signed up for this chore!"}
+      chore_id: params[:chore_id],
+      user_id: current_user.id,
+      start_of_week: params[:start_of_week],
+      completed: false
+    )
     
-    elsif @user_chore.save
+    if @user_chore.save
       render 'show.json.jb'
     else
       render json: {errors: @user_chore.errors.full_messages, status: :unprocessable_entity}

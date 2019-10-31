@@ -6,13 +6,20 @@
   end
 
   def create
+
+    if params[:house_id] && params[:house_id] != ""
+      house = House.find(params[:house_id])
+    else
+      house = House.create(name: params[:house_name])
+    end
+
     user = User.new(
       first_name: params[:first_name],
       last_name: params[:last_name],
       email: params[:email],
       password: params[:password],
       password_confirmation: params[:password_confirmation],
-      house_id: params[:house_id] || 1 # 1 is the placeholder house, which is where all users that did not know their house_id go before they have created/joined a house. 
+      house_id: house.id # 1 is the placeholder house, which is where all users that did not know their house_id go before they have created/joined a house. 
     )
 
     if user.save

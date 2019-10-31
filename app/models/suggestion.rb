@@ -1,6 +1,8 @@
 class Suggestion < ApplicationRecord
   belongs_to :user
   belongs_to :chore
+
+  validates :chore_id, uniqueness: {scope: :user_id, message: "can only have one suggestion per person!"}
   
   def values_same?(chore_id) 
     values = suggested_values(chore_id)
