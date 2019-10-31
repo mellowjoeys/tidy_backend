@@ -12,7 +12,12 @@ class Api::SuggestionsController < ApplicationController
                                   user_id: current_user.id,
                                   value: params[:value]
                                 )
-    if @suggestion.save
+    if Suggestion.find_by(
+                           chore_id: params[:chore_id],
+                           user_id: current_user.id
+                         )
+      render json: {message: "You can only have one suggestion per chore!"}
+    elsif @suggestion.save
       if @suggestion.change_chore_value?(params[:chore_id])
         Chore.find(:chore_id).value = params[:value]
       end
