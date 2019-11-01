@@ -17,15 +17,19 @@ class Api::ChoresController < ApplicationController
                         value: 0,
                         house_id: current_user.house_id
                       )
-    if @chore.save
-      Suggestion.create(
-                          chore_id: @chore.id,
-                          user_id: current_user.id,
-                          value: params[:value]
-                       )
-      render 'show.json.jb'
+    if params[:value] && params[:value] != "" && params[:value].to_i > 0 # ensures suggestion has a value greater than 0. 
+      if @chore.save
+        Suggestion.create(
+                            chore_id: @chore.id,
+                            user_id: current_user.id,
+                            value: params[:value]
+                         )
+        render 'show.json.jb'
+      else
+        render json: {errors: @chore.errors.full_messages, status: :unprocessable_entity}
+      end
     else
-      render json: {errors: @chore.errors.full_messages, status: :unprocessable_entity}
+      render json: {message: "You must suggest a value greater than 0"}
     end
   end
 
