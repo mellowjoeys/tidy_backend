@@ -6,11 +6,10 @@
   end
 
   def create
-
     if params[:house_id] && params[:house_id] != ""
       house = House.find(params[:house_id])
     else
-      house = House.create(name: params[:house_name])
+      house = House.create(name: params[:house_name]) #create
     end
 
     user = User.new(
@@ -25,6 +24,7 @@
     if user.save
       render json: {message: 'User created successfully'}, status: :created
     else
+      house.destroy
       render json: {errors: user.errors.full_messages}, status: :bad_request
     end
   end
