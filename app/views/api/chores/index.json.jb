@@ -1,4 +1,3 @@
 @chores.map do |chore|
-  {id: chore[:id], name: chore[:name], value: chore[:value]}
-  # render partial: 'chore.json.jb', locals: {chore: chore}
+  render partial: 'chore.json.jb', locals: {chore: chore}
 end
