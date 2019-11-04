@@ -1,11 +1,15 @@
 module ApplicationHelper
   def last_sunday
     now = Time.now
-    now - now.wday.days
+    sunday = now - now.wday.days
+    date = "#{sunday.year}-#{sunday.month}-#{sunday.day}"
+    date
   end
 
-  def next_sunday
+  def next_sunday 
     now = Time.now
-    now + ( 7 - now.wday ).days
+    sunday = now + ( 7 - now.wday ).days
+    date = "#{sunday.year}-#{sunday.month}-#{sunday.day}"
+    date
   end
 end
