@@ -8,12 +8,16 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   def chores_for_this_week # probably unneeded considering there is a remaining_chores method. 
-    chores_this_week = chores.where( "user_chores.start_of_week = ?", last_sunday)
+    chores_this_week = chores.where( "user_chores.start_of_week = ?", last_sunday_for_sql)
     # map_chores(chores_this_week)
   end
 
   def chores_for_next_week
-    chores.where("user_chores.start_of_week = ?", next_sunday)
+    chores.where("user_chores.start_of_week = ?", next_sunday_for_sql)
+  end
+
+  def unchosen_chores
+    house.unchosen_chores
   end
 
   # def map_chores(chores)
@@ -21,12 +25,12 @@ class User < ApplicationRecord
   # end
 
   def remaining_chores_this_week
-    remaining_chores = chores.where( "user_chores.completed = ? and user_chores.start_of_week = ?", false, last_sunday)
+    remaining_chores = chores.where( "user_chores.completed = ? and user_chores.start_of_week = ?", false, last_sunday_for_sql)
     # map_chores(remaining_chores)
   end
 
   def completed_chores_this_week
-    completed_chores = chores.where( "user_chores.completed = ? and user_chores.start_of_week = ?", true, last_sunday)
+    completed_chores = chores.where( "user_chores.completed = ? and user_chores.start_of_week = ?", true, last_sunday_for_sql)
     # map_chores(completed_chores)  
   end
 end
