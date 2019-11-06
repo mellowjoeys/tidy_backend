@@ -42,4 +42,5 @@ class Suggestion < ApplicationRecord
   def change_chore_value?(chore_id)
     values_same?(chore_id) && suggestions_equal_house_size?(chore_id)
   end # to be called in suggestion actions
+
 end

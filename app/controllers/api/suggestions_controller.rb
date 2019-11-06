@@ -15,9 +15,14 @@ class Api::SuggestionsController < ApplicationController
     if @suggestion.unique_suggestion?(params[:chore_id, current_user.id])
       if @suggestion.save
         if @suggestion.change_chore_value?(params[:chore_id])
-          Chore.find(:chore_id).value = params[:value]
+          chore_to_be_changed = Chore.find(params[:chore_id])
+          chore_to_be_changed.value = params[:value]
+          chore_to_be_changed.delete_suggestions(params[:chore_id])
+          render json: {message: "Chore has been approved and suggestions have been deleted"}
+        else
+          # add render line. delete suggestions for given chore if 
+          render 'show.json.jb'
         end
-        render 'show.json.jb'
       else
         render json: {errors: @suggestion.errors.full_messages, status: :unprocessable_entity}
       end
@@ -37,9 +42,13 @@ class Api::SuggestionsController < ApplicationController
 
     if @suggestion.save
       if @suggestion.change_chore_value?(params[:chore_id])
-        Chore.find(:chore_id).value = params[:value]
+        chore_to_be_changed = Chore.find(params[:chore_id])
+        chore_to_be_changed.value = params[:value]
+        chore_to_be_changed.delete_suggestions(params[:chore_id])
+        render json: {message: "Chore has been approved and suggestions have been deleted"} # WET code, repeats in suggestion create action. Write a class method to handle this later. 
+      else
+        render 'show.json.jb'
       end
-      render 'show.json.jb'
     else
       render json: {errors: @suggestion.errors.full_messages, status: :unprocessable_entity}
     end

@@ -7,4 +7,8 @@ class Chore < ApplicationRecord
   validates :name, presence: true
   validates :value, presence: true
   validates :house_id, presence: true 
+
+  def delete_suggestions(chore_id)
+    Suggestion.delete_by(chore_id: chore_id)
+  end
 end
