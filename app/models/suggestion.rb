@@ -7,6 +7,10 @@ class Suggestion < ApplicationRecord
   validates :value, presence: true
   validates :value, numericality: { only_integer: true }
   validates :value, numericality: { greater_than: 0 }
+
+  def unique_suggestion?(chore_id, user_id) #called in suggestions create action. 
+    !Suggestion.find_by(chore_id: chore_id, user_id: user_id)
+  end
   
   def values_same?(chore_id) 
     values = suggested_values(chore_id)

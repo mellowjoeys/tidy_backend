@@ -12,13 +12,17 @@ class Api::SuggestionsController < ApplicationController
                                   user_id: current_user.id,
                                   value: params[:value]
                                 )
-    if @suggestion.save
-      if @suggestion.change_chore_value?(params[:chore_id])
-        Chore.find(:chore_id).value = params[:value]
+    if @suggestion.unique_suggestion?(params[:chore_id, current_user.id])
+      if @suggestion.save
+        if @suggestion.change_chore_value?(params[:chore_id])
+          Chore.find(:chore_id).value = params[:value]
+        end
+        render 'show.json.jb'
+      else
+        render json: {errors: @suggestion.errors.full_messages, status: :unprocessable_entity}
       end
-      render 'show.json.jb'
     else
-      render json: {errors: @suggestion.errors.full_messages, status: :unprocessable_entity}
+      render json: {message: "You've already made a suggestion for this chore!"}
     end
   end
 
