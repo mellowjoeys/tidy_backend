@@ -15,10 +15,9 @@ class Api::UserChoresController < ApplicationController
     @user_chore = UserChore.new(
       chore_id: params[:chore_id],
       user_id: current_user.id,
-      start_of_week: params[:start_of_week],
+      start_of_week: current_user.next_sunday,
       completed: false
     )
-    
     if @user_chore.save
       render 'show.json.jb'
     else

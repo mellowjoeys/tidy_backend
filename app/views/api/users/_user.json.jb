@@ -3,5 +3,7 @@
   first_name: user.first_name,
   last_name: user.last_name,
   email: user.email,
-  house_id: user.house_id
+  house_id: user.house_id,
+  chores_this_week: user.chores_for_this_week,
+  chores_next_week: user.chores_for_next_week
 }
