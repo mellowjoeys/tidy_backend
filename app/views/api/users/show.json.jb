@@ -1,9 +1,1 @@
-{
-  id: @user.id,
-  first_name: @user.first_name,
-  last_name: @user.last_name,
-  email: @user.email,
-  house_id: @user.house_id,
-  remaining_chores: @user.remaining_chores_this_week,
-  completed_chores: @user.completed_chores_this_week
-}
+render partial: 'user.json.jb', locals: {user: @user}

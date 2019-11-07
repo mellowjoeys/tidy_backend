@@ -4,6 +4,9 @@
   last_name: user.last_name,
   email: user.email,
   house_id: user.house_id,
-  chores_this_week: user.chores_for_this_week,
-  chores_next_week: user.chores_for_next_week
+  chosen_chores_this_week: user.chores_for_this_week,
+  chosen_chores_next_week: user.chores_for_next_week,
+  remaining_chores: user.remaining_chores_this_week,
+  completed_chores: user.completed_chores_this_week,
+  value_of_next_week_chores: user.value_of_next_week_chores
 }

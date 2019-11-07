@@ -4,7 +4,7 @@ class Api::ChoresController < ApplicationController
   def index
     whole_house = params[:house]  
     if whole_house == "true"
-      @chores = current_user.house.chores
+      @chores = current_user.house.approved_chores
     else
       @chores = current_user.chores_for_this_week
     end

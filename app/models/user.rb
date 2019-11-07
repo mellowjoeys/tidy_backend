@@ -33,4 +33,13 @@ class User < ApplicationRecord
     completed_chores = chores.where( "user_chores.completed = ? and user_chores.start_of_week = ?", true, last_sunday_for_sql)
     # map_chores(completed_chores)  
   end
+
+  def value_of_next_week_chores
+    chores = chores_for_next_week
+    value = 0
+    chores.each do |chore|
+      value += chore.value
+    end
+    value
+  end
 end
