@@ -46,7 +46,7 @@
         @user.save
         render 'show.json.jb'
       else
-        render json: {message: "Please add a house_id to change and number to change it to."}
+        render json: {message: "Please add a house_id to change to."}
       end
     end
   end

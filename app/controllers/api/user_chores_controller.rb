@@ -31,7 +31,7 @@ class Api::UserChoresController < ApplicationController
   end
 
   def update
-    @user_chore = UserChore.find(params[:id])
+    @user_chore = UserChore.find_by(chore_id: params[:chore_id], start_of_week: current_user.last_sunday_for_sql)
     @user_chore.completed = true
     if @user_chore.save
       render 'show.json.jb'

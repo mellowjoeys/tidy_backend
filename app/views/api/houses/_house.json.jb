@@ -6,5 +6,5 @@
   chosen_chores: house.chosen_chores,
   unchosen_chores: house.unchosen_chores,
   approved_chores: house.approved_chores,
-  unapproved_chores: house.unapproved_chores
+  unapproved_chores: house.unapproved_chores.map {|chore| render partial: 'api/chores/chore.json.jb', locals: {chore: chore}}
 }

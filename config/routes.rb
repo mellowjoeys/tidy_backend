@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     get '/user_chores' => 'user_chores#index'
     post '/user_chores' => 'user_chores#create'
     get '/user_chores/:id' => 'user_chores#show'
-    patch '/user_chores/:id' => 'user_chores#update'
+    patch '/user_chores' => 'user_chores#update'
     delete '/user_chores/:id' => 'user_chores#destroy'
 
     get '/users' => 'users#index'

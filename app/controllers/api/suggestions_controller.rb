@@ -12,7 +12,7 @@ class Api::SuggestionsController < ApplicationController
                                   user_id: current_user.id,
                                   value: params[:value]
                                 )
-    if @suggestion.unique_suggestion?(params[:chore_id, current_user.id])
+    if @suggestion.unique_suggestion?(params[:chore_id], current_user.id)
       if @suggestion.save
         if @suggestion.change_chore_value?(params[:chore_id])
           chore_to_be_changed = Chore.find(params[:chore_id])
