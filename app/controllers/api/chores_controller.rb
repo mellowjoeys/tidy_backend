@@ -17,7 +17,15 @@ class Api::ChoresController < ApplicationController
                         value: 0,
                         house_id: current_user.house_id
                       )
-    if params[:value] && params[:value] != "" && params[:value].to_i > 0 # ensures suggestion has a value greater than 0. 
+    if current_user.house.users.length == 1
+      @chore = Chore.create( 
+                              name: params[:name],
+                              value: params[:value],
+                              house_id: current_user.house_id
+                           )
+      render 'show.json.jb'
+  
+    elsif params[:value] && params[:value] != "" && params[:value].to_i > 0 # ensures suggestion has a value greater than 0. 
       if @chore.save
         Suggestion.create(
                             chore_id: @chore.id,

@@ -44,6 +44,7 @@ class Api::SuggestionsController < ApplicationController
       if @suggestion.change_chore_value?(params[:chore_id])
         chore_to_be_changed = Chore.find(params[:chore_id])
         chore_to_be_changed.value = params[:value]
+        chore_to_be_changed.save
         chore_to_be_changed.delete_suggestions(params[:chore_id])
         render json: {message: "Chore has been approved and suggestions have been deleted"} # WET code, repeats in suggestion create action. Write a class method to handle this later. 
       else
