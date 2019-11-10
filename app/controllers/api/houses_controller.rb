@@ -16,8 +16,13 @@ class Api::HousesController < ApplicationController
   end
 
   def show
-    @house = House.find(params[:id])
-    render 'show.json.jb'
+    @current_user = current_user
+    if params[:id] == "current"
+      @house = current_user.house
+    else
+      @house = House.find(params[:id])
+    end
+      render 'show.json.jb'
   end
 
   def update
