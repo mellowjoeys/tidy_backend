@@ -42,4 +42,14 @@ class User < ApplicationRecord
     end
     value
   end
+
+  def last_week_deficit
+
+    incomplete_chores = chores.where(" user_chores.completed = ? and user_chores.start_of_week = ?", false, two_sundays_ago_for_sql)
+    value = 0
+    incomplete_chores.each do |chore|
+      value -= chore.value
+    end
+    value
+  end
 end
