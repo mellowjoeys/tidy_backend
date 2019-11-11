@@ -34,7 +34,7 @@ class User < ApplicationRecord
     # map_chores(completed_chores)  
   end
 
-  def value_of_next_week_chores
+  def next_week_gross_value
     chores = chores_for_next_week
     value = 0
     chores.each do |chore|
@@ -44,12 +44,15 @@ class User < ApplicationRecord
   end
 
   def last_week_deficit
-
     incomplete_chores = chores.where(" user_chores.completed = ? and user_chores.start_of_week = ?", false, two_sundays_ago_for_sql)
     value = 0
     incomplete_chores.each do |chore|
-      value -= chore.value
+      value += chore.value
     end
     value
+  end
+
+  def next_week_net_value
+    next_week_gross_value - last_week_deficit
   end
 end
