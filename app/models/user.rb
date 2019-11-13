@@ -25,8 +25,7 @@ class User < ApplicationRecord
   # end
 
   def remaining_chores_this_week
-    remaining_chores = chores.where( "user_chores.completed = ? and user_chores.start_of_week = ?", false, last_sunday_for_sql)
-    # map_chores(remaining_chores)
+    chores.where( "user_chores.completed = ? and user_chores.start_of_week = ?", false, last_sunday_for_sql)
   end
 
   def completed_chores_this_week
